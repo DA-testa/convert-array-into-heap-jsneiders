@@ -1,42 +1,57 @@
 # python3
-
+# Kristiāns Šneiders, 11.grupa, 221RDB042
+import os
 
 def build_heap(data):
     swaps = []
-    # TODO: Creat heap and heap sort
-    # try to achieve  O(n) and not O(n2)
-
-
+    n = len(data)
+    
+    for i in range(n//2 - 1, -1, -1):
+        sift_down(i, data, swaps)
     return swaps
 
+def sift_down(i, data, swaps):
+    n = len(data)
+
+    left_child = 2*i + 1
+    right_child = 2*i + 2
+    min_child = i
+    
+    if left_child < n and data[left_child] < data[min_child]:
+        min_child = left_child
+    if right_child < n and data[right_child] < data[min_child]:
+        min_child = right_child
+
+    if i != min_child:
+        swaps.append((i, min_child))
+        data[i], data[min_child] = data[min_child], data[i]
+        sift_down(min_child, data, swaps)
 
 def main():
-    
-    # TODO : add input and corresponding checks
-    # add another input for I or F 
-    # first two tests are from keyboard, third test is from a file
 
+    choise = input("Enter 'F' for file or 'I' for input: ")
+    if "F" in choise:
+        file_name = input().strip()
+        path = os.path.join("tests", file_name)
+        with open(path, 'r') as file:
+            n = int(file.readline().strip())
+            data = list(map(int, file.readline().split()))
+    elif "I" in choise:
+        n = int(input())
+        data = list(map(int, input().split()))
+    else:
+        print("Invalid command")
+        return
 
-    # input from keyboard
-    n = int(input())
-    data = list(map(int, input().split()))
-
-    # checks if lenght of data is the same as the said lenght
     assert len(data) == n
 
-    # calls function to assess the data 
-    # and give back all swaps
     swaps = build_heap(data)
 
-    # TODO: output how many swaps were made, 
-    # this number should be less than 4n (less than 4*len(data))
+    assert len(swaps) <= n*4
 
-
-    # output all swaps
     print(len(swaps))
     for i, j in swaps:
         print(i, j)
-
 
 if __name__ == "__main__":
     main()
