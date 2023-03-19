@@ -29,16 +29,14 @@ def sift_down(i, data, swaps):
 
 def main():
 
-    choice = input("Enter 'F' for file or 'I' for input: ")
-    choice = choice.upper()
-    
-    if choice == "F":
+    choise = input("Enter 'F' for file or 'I' for input: ")
+    if choise.upper() == "F":
         file_name = input("Enter file name: ").strip()
         path = os.path.join("tests", file_name)
         with open(path, 'r') as file:
             n = int(file.readline().strip())
             data = list(map(int, file.readline().strip().split()))
-    elif choice == "I":
+    elif choise.upper() == "I":
         n = int(input())
         data = list(map(int, input().split()))
     else:
