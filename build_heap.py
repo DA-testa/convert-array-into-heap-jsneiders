@@ -30,13 +30,13 @@ def sift_down(i, data, swaps):
 def main():
 
     choise = input("Enter 'F' for file or 'I' for input: ")
-    if choise.upper() == "F":
+    if choise in "F":
         file_name = input().strip()
         path = os.path.join("tests", file_name)
         with open(path, 'r') as file:
             n = int(file.readline().strip())
-            data = list(map(int, file.readline().strip().split()))
-    elif choise.upper() == "I":
+            data = list(map(int, file.readline().split()))
+    elif choise in "I":
         n = int(input())
         data = list(map(int, input().split()))
     else:
